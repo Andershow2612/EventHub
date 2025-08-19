@@ -6,4 +6,5 @@ go get -u github.com/gin-gonic/gin = framework
 
 go mod tidy
 
-
+para subir os arquivos para o google clound
+go get cloud.google.com/go/storage

@@ -16,12 +16,30 @@ func NewUserRepository(db * gorm.DB) *UserRepository{
 }
 
 
-func (r *UserRepository) List() ([]entity.UserTeste, error){
-	var user []entity.UserTeste
+func (r *UserRepository) List() ([]entity.User, error){
+	var user []entity.User
 
 	err := r.DB.Find(&user)
 	if err != nil{
 		fmt.Println("Users not found")
+	}
+
+	return user, nil
+}
+
+func (r *UserRepository) ListById(id int) (*entity.User, error){
+	var User entity.User
+
+	if err := r.DB.Where("id = ?", id).First(&User).Error; err != nil{
+		return nil, err
+	}
+	return &User, nil
+}
+
+func (r *UserRepository) Create(user *entity.User) (*entity.User, error){
+	
+	if err := r.DB.Create(user).Error; err != nil{
+		return nil, err
 	}
 
 	return user, nil
