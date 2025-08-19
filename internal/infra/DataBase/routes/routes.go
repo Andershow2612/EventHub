@@ -10,4 +10,6 @@ func SetUpRoutes(r *gin.Engine, db *gorm.DB){
 	UserController := controller.NewUserController(db)
 
 	r.GET("/users", UserController.Getusers)
+	r.GET("/user/:id", UserController.UserById)
+	r.POST("/create", UserController.CreateUser)
 }
