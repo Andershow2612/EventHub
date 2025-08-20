@@ -69,12 +69,37 @@ func (c *UserController) CreateUser(ctx *gin.Context){
 
 	createdUser, err := c.Service.CreateUser(&user)
 	if err != nil{
-		ctx.JSON(http.StatusInternalServerError, gin.H{
-			"error": "failed to create a user",
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusCreated, mapper.ToUserResponse(createdUser))
 
+}
+
+func (c *UserController) Login(ctx *gin.Context){
+	var req dto.LoginReq
+
+	if err := ctx.ShouldBindJSON(&req); err != nil{
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"Error": err.Error(),
+		})
+		return
+	}
+
+	token, err := c.Service.Login(req.Email, req.Password)
+	if err != nil{
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"Message": "access denied",
+			"Error": err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"Message": "access valid",
+		"Token": token,
+	})
 }

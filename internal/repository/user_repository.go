@@ -36,6 +36,16 @@ func (r *UserRepository) ListById(id int) (*entity.User, error){
 	return &User, nil
 }
 
+func (r *UserRepository) ListByEmail(email string) (*entity.User, error){
+	var user entity.User
+
+	if err := r.DB.Where("email = ?", email).First(&user).Error; err != nil{
+		return nil, err
+	}
+	
+	return &user, nil
+}
+
 func (r *UserRepository) Create(user *entity.User) (*entity.User, error){
 	
 	if err := r.DB.Create(user).Error; err != nil{
