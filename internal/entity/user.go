@@ -3,18 +3,20 @@ package entity
 import "time"
 
 type User struct {
-	ID          int
-	Name        string
-	Age         int
-	Email       string
-	Password    string
-	Role_id     int
-	Profile_img []byte
-	Created_at  time.Time
-	Updated_at time.Time
-	Deleted_at time.Time
-	Active int
-	Verification_code int
+	ID                int       
+	Name              string    
+	Age               int       
+	Email             string    
+	Password          string    
+	ProfileImg        []byte    
+	CreatedAt         time.Time 
+	UpdatedAt         time.Time 
+	DeletedAt         time.Time 
+	Active            int       
+	VerificationCode  int       
+
+	RoleID     int `gorm:"column:role_id"`
+	Role Role `gorm:"foreignKey:RoleID;references:ID"`
 }
 
 func (User) TableName() string {

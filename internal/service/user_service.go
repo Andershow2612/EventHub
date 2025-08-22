@@ -35,7 +35,7 @@ func (s *UserService) CreateUser(user *entity.User) (*entity.User, error){
 	}
 
 	_, err := s.Repo.ListByEmail(user.Email)
-	if err == nil{
+	if err != nil{
 		return nil, errors.New("email already used please try again")
 	}
 	
@@ -49,11 +49,11 @@ func (s *UserService) CreateUser(user *entity.User) (*entity.User, error){
 		Age: user.Age,
 		Email: user.Email,
 		Password: string(hashedpassword),
-		Role_id: 1,
-		Profile_img: nil,
-		Created_at: time.Now(),
+		RoleID: 3,
+		ProfileImg: nil,
+		CreatedAt: time.Now(),
 		Active: 1,
-		Verification_code: 0,
+		VerificationCode: 0,
 
 	}
 
@@ -77,12 +77,13 @@ func (s *UserService) Login(email, password string) (string, error){
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"user_id": user.ID,
+		"role": user.Role.Name,
 		"exp": time.Now().Add(2 * time.Hour).Unix(),
 	})
 
 	tokenString, err := token.SignedString(jwtSecret)
 	if err != nil{
-		return "", errors.New("Fail to generate token")
+		return "", errors.New("fail to generate token")
 	}
 
 	return tokenString, nil

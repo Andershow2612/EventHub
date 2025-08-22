@@ -19,8 +19,8 @@ func NewUserRepository(db * gorm.DB) *UserRepository{
 func (r *UserRepository) List() ([]entity.User, error){
 	var user []entity.User
 
-	err := r.DB.Find(&user)
-	if err != nil{
+	err := r.DB.Debug().Preload("Role").Find(&user)
+	if err == nil{
 		fmt.Println("Users not found")
 	}
 
@@ -30,7 +30,7 @@ func (r *UserRepository) List() ([]entity.User, error){
 func (r *UserRepository) ListById(id int) (*entity.User, error){
 	var User entity.User
 
-	if err := r.DB.Where("id = ?", id).First(&User).Error; err != nil{
+	if err := r.DB.Preload("Role").Where("id = ?", id).First(&User).Error; err != nil{
 		return nil, err
 	}
 	return &User, nil
@@ -39,7 +39,7 @@ func (r *UserRepository) ListById(id int) (*entity.User, error){
 func (r *UserRepository) ListByEmail(email string) (*entity.User, error){
 	var user entity.User
 
-	if err := r.DB.Where("email = ?", email).First(&user).Error; err != nil{
+	if err := r.DB.Debug().Preload("Role").Where("email = ?", email).Find(&user).Error; err != nil{
 		return nil, err
 	}
 	

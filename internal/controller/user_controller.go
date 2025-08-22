@@ -75,7 +75,7 @@ func (c *UserController) CreateUser(ctx *gin.Context){
 		return
 	}
 
-	ctx.JSON(http.StatusCreated, mapper.ToUserResponse(createdUser))
+	ctx.JSON(http.StatusCreated, mapper.ToUserCreated(createdUser))
 
 }
 
