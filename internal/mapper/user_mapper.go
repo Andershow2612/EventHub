@@ -14,10 +14,11 @@ func ToUserResponse(user *entity.User) dto.UserResponse{
 		Name: user.Name,
 		Age: user.Age,
 		Email: user.Email,
-		Created_at: user.Created_at,
-		Updated_at: user.Updated_at,
-		Deleted_at: user.Deleted_at,
+		Created_at: user.CreatedAt,
+		Updated_at: user.UpdatedAt,
+		Deleted_at: user.DeletedAt,
 		Active: user.Active,
+		Role: ToRoleResponse(&user.Role),
 	}
 }
 
@@ -30,6 +31,14 @@ func ToUserResponseList(users []entity.User) []dto.UserResponse{
 	return responses
 }
 
+func ToUserCreated(user *entity.User) dto.UserCreatedResponse{
+	return dto.UserCreatedResponse{
+		Name: user.Name,
+		Email: user.Email,
+		Age: user.Age,
+	}
+}
+
 //user request
 func ToUserEntity(req dto.UserReq) entity.User{
 	return entity.User{
@@ -37,9 +46,9 @@ func ToUserEntity(req dto.UserReq) entity.User{
 		Email: req.Email,
 		Password: req.Password,
 		Age: req.Age,
-		Role_id: 1,
-		Profile_img: nil,
+		RoleID: 3,
+		ProfileImg: nil,
 		Active: 1,
-		Created_at: time.Now(),
+		CreatedAt: time.Now(),
 	}
 }

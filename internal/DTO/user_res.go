@@ -1,6 +1,8 @@
 package dto
 
-import "time"
+import (
+	"time"
+)
 
 type UserResponse struct {
 	ID         int
@@ -11,4 +13,11 @@ type UserResponse struct {
 	Updated_at time.Time
 	Deleted_at time.Time
 	Active int
+	Role RoleResponse
+}
+
+type UserCreatedResponse struct{
+	Name       string
+	Age        int
+	Email      string
 }
