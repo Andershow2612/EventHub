@@ -15,4 +15,5 @@ func SetUpRoutes(r *gin.Engine, db *gorm.DB){
 	r.GET("/user/:id", UserController.UserById)
 	r.POST("/create", UserController.CreateUser)
 	r.POST("/login", UserController.Login)
+	r.PUT("/updateUser/:id", UserController.UpdateUser)
 }

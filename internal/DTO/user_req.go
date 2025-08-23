@@ -11,3 +11,9 @@ type LoginReq struct {
 	Email    string `json:"Email" binding:"required"`
 	Password string `json:"Password" binding:"required"`
 }
+
+type UserUpdateReq struct {
+	UserName string `json:"UserName"`
+	Age      int    `json:"Age"`
+	Email    string `json:"Email"`
+}

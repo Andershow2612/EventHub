@@ -67,7 +67,7 @@ func (c *UserController) CreateUser(ctx *gin.Context){
 
 	user := mapper.ToUserEntity(req)
 
-	createdUser, err := c.Service.CreateUser(&user)
+	createdUser, err := c.Service.CreateUser(user)
 	if err != nil{
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
@@ -102,4 +102,28 @@ func (c *UserController) Login(ctx *gin.Context){
 		"Message": "access valid",
 		"Token": token,
 	})
+}
+
+func (c *UserController) UpdateUser(ctx *gin.Context) {
+    id, err := strconv.Atoi(ctx.Param("id"))
+    if err != nil {
+        ctx.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
+        return
+    }
+
+    var req dto.UserUpdateReq
+    if err := ctx.ShouldBindJSON(&req); err != nil {
+        ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+        return
+    }
+
+    updatedEntity := mapper.ToUserUpdateEntity(req)
+    updatedUser, err := c.Service.UpdateUserFields(id, updatedEntity)
+    if err != nil {
+        ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+        return
+    }
+
+    res := mapper.ToUserResponse(updatedUser)
+    ctx.JSON(http.StatusOK, res)
 }
