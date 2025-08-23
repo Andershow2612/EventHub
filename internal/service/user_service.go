@@ -89,3 +89,30 @@ func (s *UserService) Login(email, password string) (string, error){
 	return tokenString, nil
 
 }
+
+func (s *UserService) UpdateUserFields(id int, updatedData *entity.User) (*entity.User, error) {
+    user, err := s.Repo.ListById(id)
+    if err != nil {
+        return nil, err
+    }
+
+    user.Name = updatedData.Name
+    user.Age = updatedData.Age
+    user.Email = updatedData.Email
+    user.UpdatedAt = time.Now()
+
+    // Atualiza apenas os campos selecionados
+    if _, err := s.Repo.UpdateSelectedFields(user, []string{"Name", "Age", "Email", "UpdatedAt"}); err != nil {
+        return nil, err
+    }
+
+    // Recarrega do banco com Role
+    user, err = s.Repo.ListById(user.ID)
+    if err != nil {
+        return nil, err
+    }
+
+    return user, nil
+}
+
+

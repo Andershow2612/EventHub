@@ -27,13 +27,13 @@ func (r *UserRepository) List() ([]entity.User, error){
 	return user, nil
 }
 
-func (r *UserRepository) ListById(id int) (*entity.User, error){
-	var User entity.User
+func (r *UserRepository) ListById(id int) (*entity.User, error) {
+	var user entity.User
 
-	if err := r.DB.Preload("Role").Where("id = ?", id).First(&User).Error; err != nil{
+	if err := r.DB.Debug().Preload("Role").Where("id = ?", id).First(&user).Error; err != nil {
 		return nil, err
 	}
-	return &User, nil
+	return &user, nil
 }
 
 func (r *UserRepository) ListByEmail(email string) (*entity.User, error){
@@ -53,4 +53,11 @@ func (r *UserRepository) Create(user *entity.User) (*entity.User, error){
 	}
 
 	return user, nil
+}
+
+func (r *UserRepository) UpdateSelectedFields(user *entity.User, fields []string) (*entity.User, error) {
+    if err := r.DB.Model(user).Select(fields).Updates(user).Error; err != nil {
+        return nil, err
+    }
+    return user, nil
 }
