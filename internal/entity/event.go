@@ -3,7 +3,7 @@ package entity
 import "time"
 
 type Event struct {
-	ID           int
+	ID           int `gorm:"primaryKey"`
 	Title        string
 	Description  string
 	Banner       []byte
@@ -14,10 +14,16 @@ type Event struct {
 	Updated_at time.Time
 
 
+	OrganizerID int `gorm:"column:organizer_id"`
+	Organizer User `gorm:"foreignKey:OrganizerID;references:ID"`
 
-	Organizer_id int
-	Mode_id int
-	Address_id int 
-	Category_id int
+	ModeID int `gorm:"column:mode_id"`
+	Mode Mode `gorm:"foreignKey:ModeID;references:ID"`
+
+	AddressID int `gorm:"column:address_id"`
+	Adress Adress `gorm:"foreignKey:AddressID;references:ID"`
 	
+	CategoryID int `gorm:"column:category_id"`
+	Category Category `gorm:"foreignKey:CategoryID;references:ID"`
+
 }
