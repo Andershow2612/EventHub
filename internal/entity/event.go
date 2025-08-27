@@ -21,9 +21,8 @@ type Event struct {
 	Mode Mode `gorm:"foreignKey:ModeID;references:ID"`
 
 	AddressID int `gorm:"column:address_id"`
-	Adress Adress `gorm:"foreignKey:AddressID;references:ID"`
+	Address Address `gorm:"foreignKey:AddressID;references:ID"`
 	
 	CategoryID int `gorm:"column:category_id"`
 	Category Category `gorm:"foreignKey:CategoryID;references:ID"`
-
 }

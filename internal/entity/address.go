@@ -1,7 +1,7 @@
 package entity
 
-type Adress struct {
-	ID          int
+type Address struct {
+	ID          int `gorm:"primaryKey"`
 	City        string
 	Street      string
 	HouseNumber int
