@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"log"
 	"time"
 
 	"eventHub.com/internal/entity"
@@ -54,7 +55,6 @@ func (s *UserService) CreateUser(user *entity.User) (*entity.User, error){
 		CreatedAt: time.Now(),
 		Active: 1,
 		VerificationCode: 0,
-
 	}
 
 	created, err := s.Repo.Create(createdUser)
@@ -72,6 +72,7 @@ func (s *UserService) Login(email, password string) (string, error){
 
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if err != nil{
+		log.Println("Erro bcrypt:", err)
 		return "", errors.New("invalid password")
 	}
 
@@ -113,6 +114,31 @@ func (s *UserService) UpdateUserFields(id int, updatedData *entity.User) (*entit
     }
 
     return user, nil
-}
+} 
 
+func (s *UserService) UpdatePassword(id int, newPassword, confirmPassword  string) error {
+    if newPassword != confirmPassword {
+        return errors.New("the password must be the same")
+    }
+
+    user, err := s.Repo.ListById(id)
+    if err != nil {
+        return errors.New("internal error")
+    }
+
+    hashedPassword, err := bcrypt.GenerateFromPassword([]byte(newPassword), 14)
+    if err != nil {
+        return errors.New("error generating new password hash")
+    }
+
+    user.Password = string(hashedPassword)
+    user.UpdatedAt = time.Now()
+
+    err = s.Repo.Update(user)
+    if err != nil {
+        return errors.New("error when saving")
+    }
+
+    return nil
+}
 

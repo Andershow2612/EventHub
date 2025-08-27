@@ -61,3 +61,7 @@ func (r *UserRepository) UpdateSelectedFields(user *entity.User, fields []string
     }
     return user, nil
 }
+
+func (r *UserRepository) Update(user *entity.User) error{
+	return r.DB.Save(user).Error
+}
