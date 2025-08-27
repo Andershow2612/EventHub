@@ -127,3 +127,35 @@ func (c *UserController) UpdateUser(ctx *gin.Context) {
     res := mapper.ToUserResponse(updatedUser)
     ctx.JSON(http.StatusOK, res)
 }
+
+func (c *UserController) UpdatePassword(ctx *gin.Context){
+	
+	var req dto.UserUpdatePassword
+
+	if err := ctx.ShouldBindJSON(&req); err != nil{
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil{
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	err = c.Service.UpdatePassword(id, req.OldPassword, req.NewPassword)
+	if err != nil{
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"Error": err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "user updated sucessfully",
+	})
+}
