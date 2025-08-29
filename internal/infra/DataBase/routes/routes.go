@@ -30,4 +30,5 @@ func SetUpRoutes(r *gin.Engine, db *gorm.DB){
 
 	//event
 	r.GET("/events", EventController.GetEvents)
+	r.GET("/event/:id", EventController.GetEventID)
 }

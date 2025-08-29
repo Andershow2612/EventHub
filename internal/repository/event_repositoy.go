@@ -27,3 +27,19 @@ func (r *EventRepository) List() ([]entity.Event, error){
 
 	return event, nil
 }
+
+
+func (r *EventRepository) ListById(id int) (*entity.Event, error){
+	var event *entity.Event
+
+	result := r.DB.Debug().Preload("Organizer").Preload("Mode").Preload("Address").Preload("Category").Where("id = ?", id).First(&event)
+	if result.RowsAffected == 0 {
+		return nil, result.Error
+	}
+
+	if result.Error != nil{
+		return nil, result.Error
+	}
+	
+	return event, nil
+}

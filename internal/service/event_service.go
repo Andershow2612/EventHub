@@ -16,3 +16,7 @@ func NewEventService(repo repository.EventRepository) *EventService{
 func (s *EventService) ListEvents() ([]entity.Event, error){
 	return s.Repo.List()
 }
+
+func (s *EventService) ListEventID(id int) (*entity.Event, error){
+	return s.Repo.ListById(id)
+}
