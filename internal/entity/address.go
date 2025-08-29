@@ -9,3 +9,7 @@ type Address struct {
 	Country     string
 	Complement  string
 }
+
+func (Address) TableName() string {
+	return "address"
+}

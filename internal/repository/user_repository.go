@@ -19,9 +19,13 @@ func NewUserRepository(db * gorm.DB) *UserRepository{
 func (r *UserRepository) List() ([]entity.User, error){
 	var user []entity.User
 
-	err := r.DB.Debug().Preload("Role").Find(&user)
+	err := r.DB.Debug().Preload("Role").Find(&user).Error
 	if err == nil{
 		fmt.Println("Users not found")
+	}
+
+	if err != nil{
+		return  nil, err
 	}
 
 	return user, nil
