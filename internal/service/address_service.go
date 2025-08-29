@@ -20,3 +20,11 @@ func (s *AddressService) ListAddrres() ([]entity.Address, error){
 func (s *AddressService) ListAddrresID(id int) (*entity.Address, error){
 	return s.Repo.ListById(id)
 }
+
+func (s *AddressService) CreateAddress(address *entity.Address) (*entity.Address, error){
+	return s.Repo.Create(address)
+}
+
+func (s *AddressService) DeleteAddress(id int) (string, error){
+	return s.Repo.Delete(id)
+}

@@ -20,7 +20,9 @@ func SetUpRoutes(r *gin.Engine, db *gorm.DB){
 	r.PUT("/updatePassord/:id", UserController.UpdatePassword)
 
 
-
+	//address
 	r.GET("/address", AddressController.GetAddress)
 	r.GET("/address/:id", AddressController.GetAddresID)
+	r.POST("/createAddress", AddressController.CreateAddress)
+	r.DELETE("/DeleteAddress/:id", AddressController.DeleteAddress)
 }

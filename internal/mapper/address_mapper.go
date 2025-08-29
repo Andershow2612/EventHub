@@ -24,3 +24,14 @@ func ToAddressResponseList(addresses []entity.Address) []dto.AddressResponse{
 	}
 	return responses
 }
+
+func ToAddressEntity(req dto.AddressRequest) *entity.Address{
+	return &entity.Address{
+		City: req.City,
+		Street: req.Street,
+		HouseNumber: req.HouseNumber,
+		State: req.State,
+		Country: req.Country,
+		Complement: req.Complement,
+	}
+}

@@ -35,3 +35,25 @@ func (r *AddressRepository) ListById(id int) (*entity.Address, error){
 
 	return address, nil
 }
+
+func (r *AddressRepository) Create(address *entity.Address) (*entity.Address, error){
+	err := r.DB.Create(&address).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return address, nil
+}
+
+func (r *AddressRepository) Delete(id int) (string, error){
+	result := r.DB.Debug().Where("id = ?", id).Delete(&entity.Address{})
+	if result.Error != nil{
+		return "The data was not deleted", result.Error
+	}
+
+	if result.RowsAffected == 0 {
+		return "No record found to delete", nil
+	}
+
+	return "Deleted successfully", nil
+}
