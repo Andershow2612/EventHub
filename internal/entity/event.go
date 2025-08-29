@@ -26,3 +26,7 @@ type Event struct {
 	CategoryID int `gorm:"column:category_id"`
 	Category Category `gorm:"foreignKey:CategoryID;references:ID"`
 }
+
+func (Event) TableName() string{
+	return "event"
+}
