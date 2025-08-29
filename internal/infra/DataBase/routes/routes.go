@@ -21,5 +21,6 @@ func SetUpRoutes(r *gin.Engine, db *gorm.DB){
 
 
 
-	r.GET("/addres", AddressController.GetAddress)
+	r.GET("/address", AddressController.GetAddress)
+	r.GET("/address/:id", AddressController.GetAddresID)
 }

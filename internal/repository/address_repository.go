@@ -23,3 +23,15 @@ func (r *AddressRepository) List() ([]entity.Address, error){
 
 	return address, nil
 }
+
+func (r *AddressRepository) ListById(id int) (*entity.Address, error){
+	var address *entity.Address
+
+	err := r.DB.Debug().First(&address).Where("id = ?", id).Error
+	
+	if err != nil {
+		return nil, err
+	}
+
+	return address, nil
+}

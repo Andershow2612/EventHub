@@ -16,3 +16,7 @@ func NewAddressService(repo repository.AddressRepository) *AddressService{
 func (s *AddressService) ListAddrres() ([]entity.Address, error){
 	return s.Repo.List()
 }
+
+func (s *AddressService) ListAddrresID(id int) (*entity.Address, error){
+	return s.Repo.ListById(id)
+}

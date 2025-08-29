@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 
 	"eventHub.com/internal/mapper"
 	"eventHub.com/internal/repository"
@@ -32,5 +33,23 @@ func (c *AddressController) GetAddress(ctx *gin.Context){
 	}
 
 	ctx.JSON(http.StatusOK, mapper.ToAddressResponseList(address))
+}
 
+func (c *AddressController) GetAddresID(ctx *gin.Context){
+	id, err := strconv.Atoi(ctx.Param("id"))
+	
+	if err != nil{
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+	}
+
+	address, err := c.Service.ListAddrresID(id)
+	if err != nil{
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+	}
+
+	ctx.JSON(http.StatusOK, mapper.ToAddressResponse(address))
 }
