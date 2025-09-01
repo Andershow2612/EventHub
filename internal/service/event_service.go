@@ -6,11 +6,13 @@ import (
 )
 
 type EventService struct {
-	Repo *repository.EventRepository
+	Repo repository.EventRepository
 }
 
 func NewEventService(repo repository.EventRepository) *EventService{
-	return &EventService{Repo: &repo}
+	return &EventService{
+		Repo: repo,
+	}
 }
 
 func (s *EventService) ListEvents() ([]entity.Event, error){
@@ -19,4 +21,18 @@ func (s *EventService) ListEvents() ([]entity.Event, error){
 
 func (s *EventService) ListEventID(id int) (*entity.Event, error){
 	return s.Repo.ListById(id)
+}
+
+func (s *EventService) CreateEvent(event *entity.Event) (*entity.Event, error){
+
+	createdEvent, err := s.Repo.Create(event)
+	if err != nil{
+		return nil, err
+	}
+
+	return createdEvent, nil
+}
+
+func (s *EventService) DeleteEvent(eventID, userID int) (string, error){
+	return s.Repo.Delete(eventID, userID)
 }

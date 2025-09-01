@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
+	dto "eventHub.com/internal/DTO"
 	"eventHub.com/internal/mapper"
 	"eventHub.com/internal/repository"
 	"eventHub.com/internal/service"
@@ -53,4 +54,59 @@ func (c *EventController) GetEventID(ctx *gin.Context){
 	}
 
 	ctx.JSON(http.StatusOK, mapper.ToEventResponse(event))
+}
+
+func (c *EventController) CreateEvent(ctx *gin.Context){
+	var req dto.EventRequest
+	if err := ctx.ShouldBindJSON(&req); err != nil{
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+	}
+
+	event := mapper.ToEventEntity(req)
+
+	createdEvent, err := c.Service.CreateEvent(event)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, mapper.ToEventResponse(createdEvent))
+}
+
+func (c *EventController) DeleteEvent(ctx *gin.Context){
+	eventID, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil{
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+	}
+
+	userID, exits := ctx.Get("user_id")
+	if !exits {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
+		return
+	}
+
+	message, err := c.Service.DeleteEvent(eventID, userID.(int))
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			ctx.JSON(http.StatusForbidden, gin.H{"error": "not found"})
+			return
+		}
+
+		if err.Error() == "forbidden"{
+			ctx.JSON(http.StatusForbidden, gin.H{"error": "you cannot delete this event"})
+        	return
+		}
+
+
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"message": message})
 }

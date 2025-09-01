@@ -2,6 +2,7 @@ package routes
 
 import (
 	"eventHub.com/internal/controller"
+	"eventHub.com/internal/middleware"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -31,4 +32,6 @@ func SetUpRoutes(r *gin.Engine, db *gorm.DB){
 	//event
 	r.GET("/events", EventController.GetEvents)
 	r.GET("/event/:id", EventController.GetEventID)
+	r.POST("/createEvent", EventController.CreateEvent)
+	r.DELETE("/DeleteEvent/:id", middleware.AuthMiddleware(), EventController.DeleteEvent)
 }

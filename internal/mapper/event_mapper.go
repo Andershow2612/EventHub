@@ -30,3 +30,18 @@ func ToEventResponseList(events []entity.Event) []dto.EventResponse{
 	}
 	return responses
 }
+
+func ToEventEntity(event dto.EventRequest) *entity.Event{
+	return &entity.Event{
+		Title: event.Title,
+		Description: event.Description,
+		Start_at: event.Start_at,
+		End_at: event.End_at,
+		Published_at: event.Published_at,
+		Created_at: event.Created_at,
+		OrganizerID: event.OrganizerID,
+		ModeID: event.ModeID,
+		AddressID: event.AddressID,
+		CategoryID: event.CategoryID,
+	}
+}
