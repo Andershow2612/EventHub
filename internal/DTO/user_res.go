@@ -13,7 +13,7 @@ type UserResponse struct {
 	Updated_at time.Time
 	Deleted_at time.Time
 	Active int
-	Role RoleResponse
+	Role RoleResponse `json:"-"`
 }
 
 type UserCreatedResponse struct{

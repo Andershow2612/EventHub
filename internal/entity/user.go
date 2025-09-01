@@ -16,7 +16,7 @@ type User struct {
 	VerificationCode  int       
 
 	RoleID     int `gorm:"column:role_id"`
-	Role Role `gorm:"foreignKey:RoleID;references:ID"`
+	Role Role `json:"-" gorm:"foreignKey:RoleID;references:ID"`
 }
 
 func (User) TableName() string {
