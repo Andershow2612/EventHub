@@ -45,3 +45,13 @@ func ToEventEntity(event dto.EventRequest) *entity.Event{
 		CategoryID: event.CategoryID,
 	}
 }
+
+func EventSummary(event *entity.Event) dto.EventSummary{
+	return dto.EventSummary{
+		ID: event.ID,
+		Title: event.Title,
+		Description: event.Description,
+		Start_at: event.Start_at,
+		Address: ToAddressResponse(&event.Address),
+	}
+}

@@ -11,6 +11,7 @@ func SetUpRoutes(r *gin.Engine, db *gorm.DB){
 	UserController := controller.NewUserController(db)
 	AddressController := controller.NewAddressController(db)
 	EventController := controller.NewEventController(db)
+	TicketController := controller.NewTicketController(db)
 
 	//rota exemplo com os middlewares
 	//r.GET("/users", middleware.AuthMiddleware(), middleware.RoleMiddleware(utils.AdmRole), UserController.Getusers)
@@ -34,4 +35,10 @@ func SetUpRoutes(r *gin.Engine, db *gorm.DB){
 	r.GET("/event/:id", EventController.GetEventID)
 	r.POST("/createEvent", EventController.CreateEvent)
 	r.DELETE("/DeleteEvent/:id", middleware.AuthMiddleware(), EventController.DeleteEvent)
+
+
+	//tickets
+	r.GET("/tickets", TicketController.GetTickets)
+	r.GET("/events/:id/tickets", TicketController.GetTicketsByEvent)
+	r.POST("/events/:id/tickets", TicketController.CreateTicket)
 }
