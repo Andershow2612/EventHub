@@ -17,3 +17,13 @@ type EventResponse struct {
 	Address AddressResponse
 	Category CategoryResponse
 }
+
+type EventSummary struct{
+	ID          int
+	Title       string
+	Description string
+	Start_at    time.Time
+
+
+	Address AddressResponse
+}
