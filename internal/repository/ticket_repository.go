@@ -30,12 +30,16 @@ func (r *TicketRepository) List() ([]entity.Ticket, error){
 }
 
 func (r *TicketRepository) Create(ticket *entity.Ticket) error {
-	return r.DB.Create(ticket).Error
+	
+	if err := r.DB.Create(ticket).Error; err != nil{
+		return err
+	}
+	return nil
 }
 
 func (r *TicketRepository) FindByEvent(eventID int) ([]entity.Ticket, error) {
 	var tickets []entity.Ticket
 	
-	err := r.DB.Where("event_id = ?", eventID).Find(&tickets).Error
+	err := r.DB.Preload("Event").Preload("Event.Address").Where("event_id = ?", eventID).Find(&tickets).Error
 	return tickets, err
 }

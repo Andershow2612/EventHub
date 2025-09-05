@@ -60,7 +60,7 @@ func (c *TicketController) CreateTicket(ctx *gin.Context){
 	}
 
 
-	ctx.JSON(http.StatusCreated, mapper.ToTicketResponse(ticket))
+	ctx.JSON(http.StatusCreated, gin.H{"Message": "ticket created"})
 }
 
 
@@ -77,5 +77,7 @@ func (c *TicketController) GetTicketsByEvent(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, tickets)
+	ctx.JSON(http.StatusOK, mapper.ToTicketResponseList(tickets))
 }
+
+// tem que arrumar o retorno desses dois metodos.
