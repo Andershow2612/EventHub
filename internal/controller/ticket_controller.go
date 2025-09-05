@@ -79,5 +79,3 @@ func (c *TicketController) GetTicketsByEvent(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, mapper.ToTicketResponseList(tickets))
 }
-
-// tem que arrumar o retorno desses dois metodos.
