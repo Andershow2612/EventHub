@@ -15,3 +15,12 @@ type EventRequest struct {
 	AddressID int
 	CategoryID int
 }
+
+type EventRequestUpdate struct{
+	Title       string
+	Description string
+	OrganizerID int
+	ModeID 		int
+	AddressID 	int
+	CategoryID 	int
+}
