@@ -35,6 +35,7 @@ func SetUpRoutes(r *gin.Engine, db *gorm.DB){
 	r.GET("/event/:id", EventController.GetEventID)
 	r.POST("/createEvent", EventController.CreateEvent)
 	r.DELETE("/DeleteEvent/:id", middleware.AuthMiddleware(), EventController.DeleteEvent)
+	r.PUT("/updateEvent/:id", EventController.UpdateEvent)
 
 
 	//tickets

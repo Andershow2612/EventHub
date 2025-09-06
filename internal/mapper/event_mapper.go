@@ -46,6 +46,17 @@ func ToEventEntity(event dto.EventRequest) *entity.Event{
 	}
 }
 
+func ToEventUpdate(event dto.EventRequestUpdate) entity.Event {
+	return entity.Event{
+		Title:       event.Title,
+		Description: event.Description,
+		OrganizerID: event.OrganizerID,
+		ModeID:      event.ModeID,
+		AddressID:   event.AddressID,
+		CategoryID:  event.CategoryID,
+	}
+}
+
 func EventSummary(event *entity.Event) dto.EventSummary{
 	return dto.EventSummary{
 		ID: event.ID,

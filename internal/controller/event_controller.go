@@ -77,6 +77,34 @@ func (c *EventController) CreateEvent(ctx *gin.Context){
 	ctx.JSON(http.StatusOK, mapper.ToEventResponse(createdEvent))
 }
 
+func (c *EventController) UpdateEvent(ctx *gin.Context){
+	var req dto.EventRequestUpdate
+
+	if err := ctx.ShouldBindJSON(&req); err != nil{
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+	}
+
+    id, err := strconv.Atoi(ctx.Param("id"))
+    if err != nil {
+        ctx.JSON(http.StatusBadRequest, gin.H{"error": "id must be a number"})
+        return
+    }
+
+	event := mapper.ToEventUpdate(req)
+
+	updatedEvent, err := c.Service.Update(id, &event)
+	if err != nil {
+        ctx.JSON(http.StatusInternalServerError, gin.H{
+            "error": err.Error(),
+        })
+        return
+    }
+
+	 ctx.JSON(http.StatusOK, updatedEvent)
+}
+
 func (c *EventController) DeleteEvent(ctx *gin.Context){
 	eventID, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil{
