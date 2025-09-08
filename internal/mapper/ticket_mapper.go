@@ -12,6 +12,8 @@ func ToTicketResponse(ticket entity.Ticket) dto.TicketResponse{
 		Price: ticket.Price,
 		EventID: ticket.Event.ID,
 		Event: EventSummary(&ticket.Event),
+		KindID: ticket.Kind.ID,
+		Kind: ToKindResponse(ticket.Kind),
 	}
 }
 
@@ -31,5 +33,6 @@ func ToTicketEntity(req dto.TicketRequest) entity.Ticket{
 		Price: req.Price,
 		Sales_start: req.Sales_start,
 		EventID: req.EventID,
+		KindID: req.KindID,
 	}
 }

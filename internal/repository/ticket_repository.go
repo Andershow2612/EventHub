@@ -16,7 +16,7 @@ func NewTicketRepository(db *gorm.DB) *TicketRepository{
 func (r *TicketRepository) List() ([]entity.Ticket, error){
 	var ticket []entity.Ticket
 
-	result := r.DB.Debug().Preload("Event.Address").Find(&ticket)
+	result := r.DB.Debug().Preload("Kind").Preload("Event.Address").Find(&ticket)
 	
 	if result.Error != nil{
 		return nil, result.Error
@@ -40,6 +40,6 @@ func (r *TicketRepository) Create(ticket *entity.Ticket) error {
 func (r *TicketRepository) FindByEvent(eventID int) ([]entity.Ticket, error) {
 	var tickets []entity.Ticket
 	
-	err := r.DB.Preload("Event").Preload("Event.Address").Where("event_id = ?", eventID).Find(&tickets).Error
+	err := r.DB.Preload("Event").Preload("Kind").Preload("Event.Address").Where("event_id = ?", eventID).Find(&tickets).Error
 	return tickets, err
 }

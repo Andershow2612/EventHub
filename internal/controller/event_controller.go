@@ -84,6 +84,7 @@ func (c *EventController) UpdateEvent(ctx *gin.Context){
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
+		return
 	}
 
     id, err := strconv.Atoi(ctx.Param("id"))

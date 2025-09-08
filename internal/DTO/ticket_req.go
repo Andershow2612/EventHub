@@ -7,5 +7,6 @@ type TicketRequest struct {
 	Name        string
 	Sales_start time.Time
 	EventID     int 
+	KindID 		int 
 	Quantity_max int
 }

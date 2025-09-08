@@ -25,22 +25,22 @@ func (s *EventService) ListEventID(id int) (*entity.Event, error){
 	return s.Repo.ListById(id)
 }
 
-func(s *EventService) Update(id int, event *entity.Event) (*entity.Event, error) {
-	
-	exist, err := s.Repo.ListById(id)
-	if err != nil {
-		return nil, err
-	}
+func (s *EventService) Update(id int, event *entity.Event) (*entity.Event, error) {
+    exist, err := s.Repo.ListById(id)
+    if err != nil {
+        return nil, err
+    }
 
-	exist.Title = event.Title
-	exist.Description = event.Description
-	exist.Updated_at = time.Now()
-	exist.OrganizerID = event.OrganizerID
-	exist.ModeID = event.ModeID
-	exist.AddressID = event.AddressID
-	exist.CategoryID = event.CategoryID
-	
-	return s.Repo.Update(exist)
+    // aplica os novos valores
+    exist.Title = event.Title
+    exist.Description = event.Description
+    exist.OrganizerID = event.OrganizerID
+    exist.ModeID = event.ModeID
+    exist.AddressID = event.AddressID
+    exist.CategoryID = event.CategoryID
+    exist.Updated_at = time.Now()
+
+    return s.Repo.Update(exist)
 }
 
 func (s *EventService) CreateEvent(event *entity.Event) (*entity.Event, error){

@@ -13,6 +13,9 @@ type Ticket struct {
 
 	EventID     int 
 	Event       Event `gorm:"foreignKey:EventID;references:ID"`
+
+	KindID int
+	Kind Kind `gorm:"foreignKey:KindID;references:ID"`
 }
 
 func (Ticket) TableName() string{
