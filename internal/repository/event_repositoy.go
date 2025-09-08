@@ -69,19 +69,26 @@ func (r *EventRepository) Create(event *entity.Event) (*entity.Event, error){
 	return event, nil
 }
 
-// fazer rotas de atualização para eventos
-func (r *EventRepository) Update(event *entity.Event) (*entity.Event, error){
-	result := r.DB.Save(event)
+func (r *EventRepository) Update(event *entity.Event) (*entity.Event, error) {
+    result := r.DB.Model(&entity.Event{}).Where("id = ?", event.ID).Updates(event)
 
-	if result.RowsAffected == 0{
-		return nil, result.Error
-	}
+    if result.Error != nil {
+        return nil, result.Error
+    }
+    if result.RowsAffected == 0 {
+        return nil, gorm.ErrRecordNotFound
+    }
 
-	if result.Error != nil{
-		return nil, result.Error	
-	}
+	var updated entity.Event
+	if err := r.DB.Preload("Organizer").
+        Preload("Mode").
+        Preload("Address").
+        Preload("Category").
+        First(&updated, event.ID).Error; err != nil {
+        return nil, err
+    }
 
-	return event, nil
+	return &updated, nil
 }
 
 func (r *EventRepository) Delete(eventID, userID int) (string, error) {

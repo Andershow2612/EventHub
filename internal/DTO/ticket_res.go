@@ -6,4 +6,6 @@ type TicketResponse struct {
 	Name    string
 	EventID int
 	Event   EventSummary
+	KindID  int
+	Kind    KindReponse
 }

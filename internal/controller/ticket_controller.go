@@ -19,7 +19,8 @@ type TicketController struct {
 func NewTicketController(db *gorm.DB) *TicketController{
 	repo := repository.NewTicketRepository(db)
 	eventRepo := repository.NewEventRepository(db)
-	service := service.NewTicketService(*repo, *eventRepo)
+	kindRepo := repository.NewKindRepository(db)
+	service := service.NewTicketService(*repo, *eventRepo, *kindRepo)
 	return &TicketController{
 		Service: service,
 	}
