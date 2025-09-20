@@ -1,7 +1,7 @@
 package entity
 
 type Mode struct {
-	ID   int `gorm:"primaryKey"`
+	ID   uint `gorm:"primaryKey"`
 	Name string
 }
 

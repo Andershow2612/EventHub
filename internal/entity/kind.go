@@ -1,7 +1,7 @@
 package entity
 
 type Kind struct {
-	ID   int `gorm:"primaryKey"`
+	ID   uint `gorm:"primaryKey"`
 	Name string
 }
 

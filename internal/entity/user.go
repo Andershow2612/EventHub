@@ -3,7 +3,7 @@ package entity
 import "time"
 
 type User struct {
-	ID                int       
+	ID                uint       
 	Name              string    
 	Age               int       
 	Email             string    
@@ -15,7 +15,7 @@ type User struct {
 	Active            int       
 	VerificationCode  int       
 
-	RoleID     int `gorm:"column:role_id"`
+	RoleID     uint `gorm:"column:role_id"`
 	Role Role `json:"-" gorm:"foreignKey:RoleID;references:ID"`
 }
 

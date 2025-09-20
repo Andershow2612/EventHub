@@ -31,7 +31,7 @@ func (r *UserRepository) List() ([]entity.User, error){
 	return user, nil
 }
 
-func (r *UserRepository) ListById(id int) (*entity.User, error) {
+func (r *UserRepository) ListById(id uint) (*entity.User, error) {
 	var user entity.User
 
 	if err := r.DB.Debug().Preload("Role").Where("id = ?", id).First(&user).Error; err != nil {

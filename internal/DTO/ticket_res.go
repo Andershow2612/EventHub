@@ -1,11 +1,11 @@
 package dto
 
 type TicketResponse struct {
-	ID      int
+	ID      uint
 	Price   float64
 	Name    string
-	EventID int
+	EventID uint
 	Event   EventSummary
-	KindID  int
+	KindID  uint
 	Kind    KindReponse
 }

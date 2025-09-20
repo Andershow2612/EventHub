@@ -6,7 +6,7 @@ type TicketRequest struct {
 	Price       float64
 	Name        string
 	Sales_start time.Time
-	EventID     int 
-	KindID 		int 
+	EventID     uint 
+	KindID 		uint 
 	Quantity_max int
 }

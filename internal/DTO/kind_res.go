@@ -1,6 +1,6 @@
 package dto
 
 type KindReponse struct {
-	ID   int
+	ID   uint
 	Name string
 }

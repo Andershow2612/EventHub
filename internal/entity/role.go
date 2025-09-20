@@ -3,7 +3,7 @@ package entity
 import "time"
 
 type Role struct {
-	ID         int `gorm:"column:id;primaryKey"`
+	ID         uint `gorm:"column:id;primaryKey"`
 	Name       string
 	Created_at time.Time
 }
