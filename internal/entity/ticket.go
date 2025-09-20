@@ -3,7 +3,7 @@ package entity
 import "time"
 
 type Ticket struct {
-	ID          int `gorm:"primaryKey"`
+	ID          uint `gorm:"primaryKey"`
 	Price       float64
 	Name        string
 	Sales_start time.Time
@@ -11,10 +11,10 @@ type Ticket struct {
 	Quantity_max int
 	Quantity_sold int
 
-	EventID     int 
+	EventID     uint 
 	Event       Event `gorm:"foreignKey:EventID;references:ID"`
 
-	KindID int
+	KindID uint
 	Kind Kind `gorm:"foreignKey:KindID;references:ID"`
 }
 

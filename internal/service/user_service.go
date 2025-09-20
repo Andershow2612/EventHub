@@ -25,7 +25,7 @@ func (s *UserService) ListUser() ([]entity.User, error){
 	return s.Repo.List()
 }
 
-func (s *UserService) ListAUser(id int) (*entity.User, error){
+func (s *UserService) ListAUser(id uint) (*entity.User, error){
 	return s.Repo.ListById(id)
 }
 
@@ -91,7 +91,7 @@ func (s *UserService) Login(email, password string) (string, error){
 
 }
 
-func (s *UserService) UpdateUserFields(id int, updatedData *entity.User) (*entity.User, error) {
+func (s *UserService) UpdateUserFields(id uint, updatedData *entity.User) (*entity.User, error) {
     user, err := s.Repo.ListById(id)
     if err != nil {
         return nil, err
@@ -116,7 +116,7 @@ func (s *UserService) UpdateUserFields(id int, updatedData *entity.User) (*entit
     return user, nil
 } 
 
-func (s *UserService) UpdatePassword(id int, newPassword, confirmPassword  string) error {
+func (s *UserService) UpdatePassword(id uint, newPassword, confirmPassword  string) error {
     if newPassword != confirmPassword {
         return errors.New("the password must be the same")
     }

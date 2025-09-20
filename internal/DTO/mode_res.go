@@ -1,6 +1,6 @@
 package dto
 
 type ModeResponse struct {
-	ID   int
+	ID   uint
 	Name string
 }

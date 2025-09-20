@@ -1,6 +1,6 @@
 package dto
 
 type RoleResponse struct {
-	ID   int
+	ID   uint
 	Name string
 }

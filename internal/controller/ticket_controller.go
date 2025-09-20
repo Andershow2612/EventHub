@@ -55,7 +55,7 @@ func (c *TicketController) CreateTicket(ctx *gin.Context){
 
 	ticket := mapper.ToTicketEntity(req)
 
-	if err := c.Service.CreateTicket(eventID, ticket); err != nil {
+	if err := c.Service.CreateTicket(uint(eventID), ticket); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

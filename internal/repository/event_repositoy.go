@@ -31,7 +31,7 @@ func (r *EventRepository) List() ([]entity.Event, error){
 }
 
 
-func (r *EventRepository) ListById(id int) (*entity.Event, error){
+func (r *EventRepository) ListById(id uint) (*entity.Event, error){
 	var event *entity.Event
 
 	result := r.DB.Debug().Preload("Organizer").Preload("Mode").Preload("Address").Preload("Category").Where("id = ?", id).First(&event)
@@ -91,7 +91,7 @@ func (r *EventRepository) Update(event *entity.Event) (*entity.Event, error) {
 	return &updated, nil
 }
 
-func (r *EventRepository) Delete(eventID, userID int) (string, error) {
+func (r *EventRepository) Delete(eventID, userID uint) (string, error) {
     var event entity.Event
 
     result := r.DB.Debug().First(&event, eventID)

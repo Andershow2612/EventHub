@@ -1,0 +1,45 @@
+# -----------------------
+# Arquivos de ambiente
+# -----------------------
+.env
+.env.local
+.env.*.local
+
+# -----------------------
+# Binários e compilados
+# -----------------------
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Diretórios de build
+/bin/
+/build/
+/dist/
+
+# -----------------------
+# Cache e dependências
+# -----------------------
+/vendor/
+*.cache
+*.tmp
+
+# -----------------------
+# IDEs e editores
+# -----------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+
+# -----------------------
+# Outros arquivos temporários
+# -----------------------
+*.bak
+*.old
+*.orig

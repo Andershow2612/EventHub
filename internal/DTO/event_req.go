@@ -10,17 +10,17 @@ type EventRequest struct {
 	Published_at time.Time
 	Created_at time.Time
 	Updated_at time.Time
-	OrganizerID int
-	ModeID int
-	AddressID int
-	CategoryID int
+	OrganizerID uint
+	ModeID uint
+	AddressID uint
+	CategoryID uint
 }
 
 type EventRequestUpdate struct{
 	Title       string
 	Description string
-	OrganizerID int
-	ModeID 		int
-	AddressID 	int
-	CategoryID 	int
+	OrganizerID uint
+	ModeID 		uint
+	AddressID 	uint
+	CategoryID 	uint
 }

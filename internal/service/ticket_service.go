@@ -25,7 +25,7 @@ func (s *TicketService) List() ([]entity.Ticket, error) {
 	return s.Repo.List()
 }
 
-func (s *TicketService) CreateTicket(eventID int, ticket entity.Ticket) error{
+func (s *TicketService) CreateTicket(eventID uint, ticket entity.Ticket) error{
 	_, err := s.eventRepo.ListById(eventID)
 	if err != nil{
 		return err

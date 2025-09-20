@@ -16,7 +16,7 @@ func NewKindRepository(db *gorm.DB) *KindRepository{
 	}
 }
 
-func (r *KindRepository) FindById(id int) (*entity.Kind, error){
+func (r *KindRepository) FindById(id uint) (*entity.Kind, error){
 	var kind entity.Kind
 
 	 if err := r.DB.Where("id = ?", id).First(&kind).Error; err != nil{

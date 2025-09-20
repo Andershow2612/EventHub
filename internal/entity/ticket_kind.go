@@ -1,7 +1,7 @@
 package entity
 
 type TicketKind struct {
-	ID   string
+	ID   uint
 	Name string
 }
 

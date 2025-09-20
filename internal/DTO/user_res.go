@@ -5,7 +5,7 @@ import (
 )
 
 type UserResponse struct {
-	ID         int
+	ID         uint
 	Name       string
 	Age        int
 	Email      string

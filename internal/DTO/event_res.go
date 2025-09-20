@@ -3,7 +3,7 @@ package dto
 import "time"
 
 type EventResponse struct {
-	ID          int
+	ID          uint
 	Title       string
 	Description string
 	Start_at    time.Time
@@ -19,7 +19,7 @@ type EventResponse struct {
 }
 
 type EventSummary struct{
-	ID          int
+	ID          uint
 	Title       string
 	Description string
 	Start_at    time.Time

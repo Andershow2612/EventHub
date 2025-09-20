@@ -1,7 +1,7 @@
 package dto
 
 type CategoryResponse struct {
-	ID          int
+	ID          uint
 	Name        string
 	Description string
 }

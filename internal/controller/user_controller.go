@@ -46,7 +46,7 @@ func (c *UserController) UserById(ctx *gin.Context){
 		return
 	}
 
-	user, err := c.Service.ListAUser(id)
+	user, err := c.Service.ListAUser(uint(id))
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
@@ -118,7 +118,7 @@ func (c *UserController) UpdateUser(ctx *gin.Context) {
     }
 
     updatedEntity := mapper.ToUserUpdateEntity(req)
-    updatedUser, err := c.Service.UpdateUserFields(id, updatedEntity)
+    updatedUser, err := c.Service.UpdateUserFields(uint(id), updatedEntity)
     if err != nil {
         ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
         return
@@ -147,7 +147,7 @@ func (c *UserController) UpdatePassword(ctx *gin.Context){
 		return
 	}
 
-	err = c.Service.UpdatePassword(id, req.OldPassword, req.NewPassword)
+	err = c.Service.UpdatePassword(uint(id), req.OldPassword, req.NewPassword)
 	if err != nil{
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"Error": err.Error(),

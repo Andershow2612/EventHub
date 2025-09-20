@@ -45,7 +45,7 @@ func (c *EventController) GetEventID(ctx *gin.Context){
 		return
 	}
 
-	event, err := c.Service.ListEventID(id)
+	event, err := c.Service.ListEventID(uint(id))
 	if err != nil{
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
@@ -95,7 +95,7 @@ func (c *EventController) UpdateEvent(ctx *gin.Context){
 
 	event := mapper.ToEventUpdate(req)
 
-	updatedEvent, err := c.Service.Update(id, &event)
+	updatedEvent, err := c.Service.Update(uint(id), &event)
 	if err != nil {
         ctx.JSON(http.StatusInternalServerError, gin.H{
             "error": err.Error(),
@@ -114,13 +114,15 @@ func (c *EventController) DeleteEvent(ctx *gin.Context){
 		})
 	}
 
-	userID, exits := ctx.Get("user_id")
+	user, exits := ctx.Get("user_id")
 	if !exits {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
 		return
 	}
 
-	message, err := c.Service.DeleteEvent(eventID, userID.(int))
+	userID := user.(uint)
+
+	message, err := c.Service.DeleteEvent(uint(eventID), userID)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			ctx.JSON(http.StatusForbidden, gin.H{"error": "not found"})
